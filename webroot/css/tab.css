@@ -1,0 +1,49 @@
+@charset "utf-8";
+#multiattachstatus{
+	display:none;
+    margin: 12px auto 0;
+    text-align: center;
+    width: 80%;
+}
+#multiattachments{
+	margin-top:1em;	
+}
+#multiattachments table tr th{
+	width:30%;	
+}
+td.mltaComment{
+	max-width:290px;	
+	font-size:0.9em;
+}
+.multiattach_title{
+	margin-top:1em;	
+}
+#MultiattachUrl2parse{
+	width:80%;
+	min-width:300px;
+		
+}
+#webData{
+	width:80%;
+	margin:0 auto;	
+}
+#MultiattachTitle, #MultiattachDescription {
+	width:98%;	
+}
+#MultiattachDescription{
+	height:2.73em;	
+}
+#MultiattachTitle{
+	font-size:1.2em;	
+}
+#webData img{
+	float:left;	
+	width:24%;
+}
+#webData .right{
+	float:right;
+	width:73%;	
+}
+.clr{
+	clear:both;	
+}

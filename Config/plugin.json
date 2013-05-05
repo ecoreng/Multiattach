@@ -1,0 +1,14 @@
+{
+	"name": "Multiattach",
+	"description": "Plugin para adjuntar archivos multiples en nodos",
+
+	"author": "Elias Coronado",
+	"authorEmail": "coso_del_cosito@hotmail.com",
+	"authorUrl": "http://racicali.com",
+
+	"dependencies": {
+		"plugins": [
+			"extensions"
+		]
+	}
+}
