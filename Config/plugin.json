@@ -1,10 +1,10 @@
 {
 	"name": "Multiattach",
-	"description": "Plugin para adjuntar archivos multiples en nodos",
+	"description": "Attach Multiple files, links/websites or videos to a node in Croogo",
 
 	"author": "Elias Coronado",
-	"authorEmail": "coso_del_cosito@hotmail.com",
-	"authorUrl": "http://racicali.com",
+	"authorEmail": "coso.del.cosito@gmail.com",
+	"authorUrl": "http://github.com/ecoreng",
 
 	"dependencies": {
 		"plugins": [
