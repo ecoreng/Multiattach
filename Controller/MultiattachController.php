@@ -51,10 +51,10 @@ class MultiattachController extends MultiattachAppController {
 			}
 		}
 		
-		// list of allowed file types, this is only images but documents can be added
+		// list of allowed file types
 		// gif, jpg, bmp, png, pdf, txt
 		// http://filext.com/file-extension/PNG
-		$permitted = array(
+		$allowed = array(
 			'image/gif',
 			'image/x-xbitmap',
 			'image/gi_',
@@ -110,7 +110,7 @@ class MultiattachController extends MultiattachAppController {
 			// assume filetype is false
 			$typeOK = false;
 			// check filetype is ok
-			foreach($permitted as $type) {
+			foreach($allowed as $type) {
 				if($type == $formdata['type'][$key]) {
 					$typeOK = true;
 					break;
@@ -325,7 +325,7 @@ class MultiattachController extends MultiattachAppController {
 		
 		$size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));	
 		$size=$size->result;
-		if($size===NULL||$size===false){
+		if ( $size===NULL || $size===false ){
 			switch($dimension){
 				case 'thumb':
 					// Width: 150px, height: proportional
