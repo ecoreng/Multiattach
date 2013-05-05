@@ -73,9 +73,15 @@ It uses jQuery for the UI.
   * Edit how file routes are displayed
   * Proper image detection (mime types hardcoded right now)
   * Cleanup code
+  * Retrieve attachments easily
   * Thumbnail resizer needs to be optional (external)
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
+
+## How to retrieve Attachments
+
+  * Programmatically
+  * -Todo: a way to get attachments easily
 
 ## Extend its use
 
