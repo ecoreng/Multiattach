@@ -63,7 +63,7 @@ It uses jQuery for the UI.
   * Currently Images from parsed websites cant be changed
  
 
-## To be done
+## To do
 
   * Attachments on node creation
   * Edit descriptions once they are uploaded
@@ -75,6 +75,9 @@ It uses jQuery for the UI.
   * Cleanup code
   * Retrieve attachments easily
   * Thumbnail resizer needs to be optional (external)
+  * Attach Galleries or Single pics from Facebook
+  * Attach from dropbox
+  * Attach from Google drive
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
