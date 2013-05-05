@@ -1,7 +1,8 @@
 // Deletes an attachment locating it by its node_id and id
 function deleteAttachment(attachmentID) {
 	var url=Croogo.basePath + 'admin/Multiattach/AjaxKillAttachmentJson/'+attachmentID+'/'+Croogo.params.node_id;
-	$.getJSON(url, function(data, textStatus) {
+	var params={rand:Math.random()};
+	$.getJSON(url,params, function(data, textStatus) {
 			$("#multiattachstatus").html(Croogo.params.multiattach.deleteSt['s'+data.status]).slideDown('fast',function(){setTimeout('$("#multiattachstatus").slideUp();',5000)});
 			reloadAttachmentTable();
 		});
@@ -17,7 +18,8 @@ function tabulate(attachment){
 function reloadAttachmentTable(){
 		if (Croogo.params.controller=='nodes') {
 		var url=Croogo.basePath + 'admin/Multiattach/AjaxGetAttachmentJson/'+Croogo.params.node_id;
-		$.getJSON(url, function(data, textStatus) {
+		var params={rand:Math.random()};
+		$.getJSON(url,params, function(data, textStatus) {
 			cuantos=data.length;
 			$("form#NodeAdminEditForm .nav-tabs li a[href=#node-attachments]").html(Croogo.params.multiattach.tabName+" ("+cuantos+")");
 			tableHTML='<table class="table table-stripped">';

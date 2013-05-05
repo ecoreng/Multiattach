@@ -49,7 +49,7 @@ class MultiattachBehavior extends ModelBehavior {
 					);
 				$model->Multiattach->recursive=-1;				
 				if(isset($results[$i][$model->alias]['id'])) {
-					$results[$i]['Multiattach']=$model->Multiattach->find('all',array('conditions'=>array('multiattach.node_id'=>$results[$i][$model->alias]['id'])));
+					$results[$i]['Multiattach']=$model->Multiattach->find('all',array('conditions'=>array('Multiattach.node_id'=>$results[$i][$model->alias]['id'])));
 				}
 			}
 		}
