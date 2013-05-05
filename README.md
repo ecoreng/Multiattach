@@ -55,7 +55,7 @@ It uses jQuery for the UI.
 
 ## Limitations
 
-  * It supports just JPG, GIF, PNG and BMP for images, other files will upload but no preview will be shown
+  * It supports just JPG, GIF, PNG and BMP for images, [pdf, txt] will be uploaded but no preview will be shown
   * Currently it supports only Youtube for videos and any other website will be parsed from its meta tags. Other websites can be easily added by just creating the datasource and naming it appropriately.
   * Currently it supports 3 sizes of thumbnails, others can be hardcoded or you can wait for the feature to be developed (or better yet, develop it :D)
   * Currently the description for the attachment can just be edited at creation time
@@ -67,7 +67,7 @@ It uses jQuery for the UI.
 
   * Attachments on node creation
   * Edit descriptions once they are uploaded
-  * Edit the allowed mime types
+  * Edit the allowed mime types without hardcoding them
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
   * Document methods in controllers
   * Edit how file routes are displayed
@@ -123,10 +123,27 @@ $size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array(
   * Name it appropietly: VimeoCom will have a higher hierarchy than Vimeo, but any will work.
   * Notice that if you create a YoutubeCom and a Youtube, the first will be picked, so try to be as specific as you can (dont add www, but if a subdomain is required DO add it, e.g. DmvCaGov for http://dmv.ca.gov)
   * Notice that .co.uk domains (and similar) need to be named completely, this is a bug, but the fixing of it would require much more logic or hard coding every single tld, so please name your datasources fully.
-  
+
+### How to upload different file types
+
+  * Open Multiattach controller (Plugins/Multiattach/Controller/MultiattachController.php)
+  * Look for the _uploadFiles method 
+  * Look for the $allowed = array(...
+  * Add the mime type to the list
+
+### How to upload bigger files
+
+  * Edit the post_max_size setting in your php.ini
+  * Edit the upload_max_filesize setting in your php.ini
+
+
 ## Feedback
 
-  * Is always welcome, this is my first (and hopefully not last) Croogo plugin
+  * Feedback is always welcome, this is my first (and hopefully not last) Croogo plugin
 
+## Sources
 
+  * This plugin uses part of this code: http://www.jamesfairhurst.co.uk/posts/view/uploading_files_and_images_with_cakephp
+  * This plugin uses most of this code: https://gist.github.com/bchapuis/1562272
+  * This plugin uses this code: http://github.com/edap/cakePHP-youtube-datasource
  
