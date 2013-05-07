@@ -18,7 +18,7 @@ It uses jQuery and ajax for the UI.
 
 #### Manual installation
 
-  * Extract the archive. Upload the content to your Croogo installation in the ./app/Plugins/Multiattach directory.
+  * Extract the file. Upload the content to your Croogo installation in the ./app/Plugins/Multiattach directory.
   * visit Croogo's extension system to "activate" the plugin.
 
 ## How to use
