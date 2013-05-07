@@ -2,12 +2,13 @@
 
 **Multiattach** is a free, open source, Attachment manager for nodes in the Croogo CMS for PHP, released under [MIT License].
 
-It uses jQuery for the UI.
+It uses jQuery and ajax for the UI.
 
 ## Requirements
   * Croogo 1.5 or higher
   * HTML5 support
   * Javascript support
+  * jQuery (included in Croogo 1.5)
 
 ## Installation
 
