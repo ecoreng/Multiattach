@@ -25,14 +25,11 @@ class MultiattachHelper extends AppHelper {
 				continue;
 				
 			$attachment["content"]=json_decode($attachment["content"],true);
-			//var_dump($attachment);
-			//echo "<br />";
 			foreach($filters as $keyf => $filter) {
 				if(!isset($attachment["content"][$keyf]))
 					continue;
-				echo $filter."=".$attachment["content"][$keyf]."<br />";
 				if( preg_match($filter,$attachment["content"][$keyf]) ) {
-					$output[$key]["Multiattach"]=$attachment;
+					$output[]["Multiattach"]=$attachment;
 				}
 			}
 		}
@@ -41,4 +38,24 @@ class MultiattachHelper extends AppHelper {
 		else
 			return FALSE;
 	}
+	
+	public function filter($filters = array()){
+		$output=array();
+		foreach($this->attachments as $key => $attachment) {
+			$attachment=$attachment["Multiattach"];
+				
+			foreach($filters as $keyf => $filter) {
+				if(!isset($attachment[$keyf]))
+					continue;
+				if( preg_match($filter,$attachment[$keyf]) ) {
+					$output[]["Multiattach"]=$attachment;
+				}
+			}
+		}
+		if(count($output)>0)
+			return $output;
+		else
+			return FALSE;
+	}
+	
 }
