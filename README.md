@@ -84,8 +84,40 @@ It uses jQuery and ajax for the UI.
 
 ## How to retrieve Attachments
 
-  * Programmatically
-  * -Todo: a way to get attachments easily
+Use the helper
+
+The Multiattach array is already "linked" to the node model, so use the set method to set the attachments in a helper var
+then you can use one of two methods that work similar:
+  * $this->Multiattach->filter(array('key'=>'regex to compare value')) : Useful for getting file attachments (compare mime types, filenames, etc.)
+  * $this->Multiattach->filterWebContent(array('key'=>'regex to compare value parsed from web')) : Useful for getting web attachments as it compares values parsed from the web (url, player url, title, description, any other.. depends on the datasource)
+
+Get attached videos from youtube:
+
+```
+        $this->Multiattach->set($node["Multiattach"]);
+        $youtubeVids=$this->Multiattach->filterWebContent(array('player'=>'/youtube.com/i'));
+        foreach($youtubeVids as $ytv) {
+         ?><iframe src="<?php echo $ytv["Multiattach"]["content"]["player"];?>"></iframe><?php
+        }
+```
+
+Get the attached images:
+
+```
+        $this->Multiattach->set($node["Multiattach"]);
+        $images=$this->Multiattach->filter(array('mime'=>'#image#i'));
+        foreach($images as $image) {
+           $link=$this->Html->url(array(
+ 														'plugin'=>'Multiattach',
+															'controller'=>'Multiattach',
+															'action'=>'displayFile', 
+															'admin'=>false,
+															'dimension'=>'normal',
+															'filename'=>$fondo["Multiattach"]['filename']
+														));
+              ?><img src="<?php echo $link; ?>" alt="attached image" /><?php
+        }
+```
 
 ## Extend its use
 
@@ -145,7 +177,6 @@ $size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array(
 
   * Edit the post_max_size setting in your php.ini
   * Edit the upload_max_filesize setting in your php.ini
-
 
 ## Feedback
 
