@@ -74,7 +74,7 @@ It uses jQuery and ajax for the UI.
   * Edit how file routes are displayed
   * Proper image detection (mime types hardcoded right now)
   * Cleanup code
-  * Retrieve attachments easily
+  * ~~Retrieve attachments easily~~
   * Thumbnail resizer needs to be optional (external)
   * Attach Galleries or Single pics from Facebook
   * Attach from dropbox
