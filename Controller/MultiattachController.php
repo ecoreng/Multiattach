@@ -486,7 +486,7 @@ class MultiattachController extends MultiattachAppController {
 	}
 	
 	// Kill the attachment via ajax, return Json status
-	public function admin_ajaxKillAttachmentJson($attachment, $node){
+	public function admin_AjaxKillAttachmentJson($attachment, $node){
 		$attachment=Sanitize::paranoid($attachment);
 		$node=Sanitize::paranoid($node);
 		$attaM=$this->Multiattach->find('first',array('recursive'=>-1,'conditions'=>array('id'=>$attachment,'node_id'=>$node)));
