@@ -43,12 +43,17 @@ class MultiattachHelper extends AppHelper {
 		$output=array();
 		foreach($this->attachments as $key => $attachment) {
 			$attachment=$attachment["Multiattach"];
-				
+			
+			$numFilters=count($filters);
+			$passed=0;
 			foreach($filters as $keyf => $filter) {
 				if(!isset($attachment[$keyf]))
 					continue;
 				if( preg_match($filter,$attachment[$keyf]) ) {
-					$output[]["Multiattach"]=$attachment;
+					$passed+=1;
+				}
+				if ($numFilters==$passed) {
+					$output[]["Multiattach"]=$attachment;	
 				}
 			}
 		}
