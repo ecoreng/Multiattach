@@ -21,6 +21,10 @@ It uses jQuery and ajax for the UI.
   * Extract the file. Upload the content to your Croogo installation in the ./app/Plugins/Multiattach directory.
   * visit Croogo's extension system to "activate" the plugin.
 
+#### Create a "files" folder
+
+  * Create a folder called "files" in your app folder, set the proper permissions to be able to upload files, this is done internally if apache has the rights to do it, but if you see an error, just create it manually.
+
 ## How to use
 
   * Create a node of any type.
