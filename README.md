@@ -123,7 +123,7 @@ Get the attached images:
 															'action'=>'displayFile', 
 															'admin'=>false,
 															'dimension'=>'normal',
-															'filename'=>$fondo["Multiattach"]['filename']
+															'filename'=>$image["Multiattach"]['filename']
 														));
               ?><img src="<?php echo $link; ?>" alt="attached image" /><?php
         }
