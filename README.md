@@ -74,7 +74,7 @@ It uses jQuery and ajax for the UI.
   * Edit descriptions once they are uploaded
   * Edit the allowed mime types without hardcoding them
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
-  * Document methods in controllers
+  * Document methods in classes
   * Edit how file routes are displayed
   * Proper image detection (mime types hardcoded right now)
   * Cleanup code
@@ -83,7 +83,7 @@ It uses jQuery and ajax for the UI.
   * Attach Galleries or Single pics from Facebook
   * Attach from dropbox
   * Attach from Google drive
-  * Manually creating a "files" folder and setting permissions instruction.
+  * ~~Manually creating a "files" folder and setting permissions instruction.~~
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
