@@ -88,7 +88,7 @@ It uses jQuery and ajax for the UI.
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
   * Check the transparent PNG error.
-  * Auth error (https://groups.google.com/d/msg/croogo/F00CZBvmf7g/OdFFmEQsoCEJ)
+  * ~~Auth error (https://groups.google.com/d/msg/croogo/F00CZBvmf7g/OdFFmEQsoCEJ)~~
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
