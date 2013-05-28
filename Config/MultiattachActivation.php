@@ -59,10 +59,14 @@ class MultiattachActivation {
 				}
 		
 		// ACL: set ACOs with permissions
-		//$controller->Croogo->addAco('Example'); // ExampleController
-		//$controller->Croogo->addAco('Example/admin_index'); // ExampleController::admin_index()
-		//$controller->Croogo->addAco('Example/index', array('registered', 'public')); // ExampleController::index()
-
+		$controller->Croogo->addAco('Multiattach');
+		$controller->Croogo->addAco('Multiattach/Multiattach');
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add_web');
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add'); 
+		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile',array('registered', 'public')); 
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxKillAttachmentJson');
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxGetAttachmentJson');
+		
 		// Main menu: add an Example link
 		//$mainMenu = $controller->Link->Menu->findByAlias('main');
 		//$controller->Link->Behaviors->attach('Tree', array(
@@ -97,7 +101,7 @@ class MultiattachActivation {
  */
 	public function onDeactivation(&$controller) {
 		// ACL: remove ACOs with permissions
-		//$controller->Croogo->removeAco('Example'); // ExampleController ACO and it's actions will be removed
+		$controller->Croogo->removeAco('Multiattach'); // ExampleController ACO and it's actions will be removed
 
 		// Main menu: delete Example link
 		//$link = $controller->Link->find('first', array(

@@ -27,8 +27,12 @@ class MultiattachController extends MultiattachAppController {
 		parent::beforeFilter();	
 	}
 	
-	// http://www.jamesfairhurst.co.uk/posts/view/uploading_files_and_images_with_cakephp
+        
+	/*
+         * Upload selected files
+         */
 	protected function _uploadFiles($formdata, $itemId = null) {
+        // http://www.jamesfairhurst.co.uk/posts/view/uploading_files_and_images_with_cakephp
 		// setup dir names absolute and relative
 		$folder_url = APP . 'files' . DS;
 		$rel_url = 'files' ;
@@ -167,6 +171,11 @@ class MultiattachController extends MultiattachAppController {
 	return $result;
 	}
 
+        /**
+         * admin_add_web
+         * Attach website from url
+         * @param string $node
+         */
 	public function admin_add_web($node=''){
 		$this->components[]='Session';
 		$this->layout = 'admin_popup';
@@ -269,6 +278,11 @@ class MultiattachController extends MultiattachAppController {
 		}
 		
 	}
+        /**
+         * admin_add
+         * Upload files and link them to $node
+         * @param int $node
+         */
 	public function admin_add($node=''){
 		$this->helpers[] = "Html";
 		$this->components[]='Session';
@@ -316,7 +330,12 @@ class MultiattachController extends MultiattachAppController {
 		}
 		
 	}
-	
+	/**
+         * _getDimension
+         * Get $dimension string and try to get a number from that, returns an array with (height,width)
+         * @param type $dimension
+         * @return array
+         */
 	protected function _getDimension ($dimension) {
 		// This is supposed to trigger an event that we can implement
 		// into a plugin to manage thumbnail sizes without having to
@@ -346,7 +365,12 @@ class MultiattachController extends MultiattachAppController {
 		}
 		return $size;
 	}
-	
+	/**
+         * _isImage
+         * Returns if filetype is an image comparing the mime type to known values
+         * @param type $mime
+         * @return boolean
+         */
 	protected function _isImage($mime){
 			if(
 			   strpos($mime,'image')	!== FALSE ||
@@ -361,6 +385,13 @@ class MultiattachController extends MultiattachAppController {
 			return false;
 	}
 	
+        /**
+         * _resizeImage
+         * Resizes the image given in $filename to $size (array[width,height]), returns the filename of the resized image
+         * @param string $filename
+         * @param array $size
+         * @return string
+         */
 	protected function _resizeImage($filename,$size){
 	$cacheDir = 'files'.DS.'cache'; 
 	
@@ -432,6 +463,14 @@ class MultiattachController extends MultiattachAppController {
         return $cachefile;
     
 	}
+        /**
+         * displayFile
+         * Returns the file, it gets it from outside the webroot, and sets it for download if its not an image
+         * @param string $filename
+         * @param string $dimension
+         * @return file
+         * @throws NotFoundException
+         */
 	public function displayFile($filename,$dimension='normal'){
 		$size=$this->_getDimension($dimension);
 		$filename=Sanitize::clean($filename);
@@ -476,7 +515,11 @@ class MultiattachController extends MultiattachAppController {
 		}
 	}
 	
-	// Get node_id via ajax, return attachments in json
+        /**
+         * admin_AjaxGetAttachmentJson
+         * get attachments from node $node_id and return json information
+         * @param int $node_id
+         */
 	public function admin_AjaxGetAttachmentJson($node_id) {
 		
 		$attachments=$this->Multiattach->find('all',array('recursive'=>-1,'conditions'=>array('node_id'=>$node_id)));
@@ -485,7 +528,12 @@ class MultiattachController extends MultiattachAppController {
 		$this->render('Multiattach/admin_ajax_get_attachment_json','json/admin');
 	}
 	
-	// Kill the attachment via ajax, return Json status
+        /**
+         * admin_AjaxKillAttachmentJson
+         * Deletes the attachments via ajax, return json status
+         * @param type $attachment
+         * @param type $node
+         */
 	public function admin_AjaxKillAttachmentJson($attachment, $node){
 		$attachment=Sanitize::paranoid($attachment);
 		$node=Sanitize::paranoid($node);
