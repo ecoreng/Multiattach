@@ -1,13 +1,16 @@
 <?php
-echo $this->Html->css('Multiattach.tab.css');
+echo $this->Html->css('Multiattach.tab.css', null, array('inline'=>false));
 $this->Html->script('/multiattach/js/getAttachments.js', false);
 
+echo $this->Html->css('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.4/bootstrap-editable/css/bootstrap-editable.css', null, array('inline'=>false));
+$this->Html->script('//cdnjs.cloudflare.com/ajax/libs/x-editable/1.4.4/bootstrap-editable/js/bootstrap-editable.min.js', false);
 ?>
 <script>
 	Croogo.params.node_id=<?php echo $node_id; ?>;
 	
 	var params={
 		multiattach:{
+			proCoUrl:'<?php echo $this->Html->url(array('admin'=>true,'plugin'=>'Multiattach','controller'=>'Multiattach','action'=>'PostCommentAttachmentJson')); ?>',
 			tabName:'<?php echo __('Attachments'); ?>',
 			fileLbl:'<?php echo __('File'); ?>',
 			commentLbl:'<?php echo __('Comment'); ?>',

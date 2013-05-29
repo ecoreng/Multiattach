@@ -13,7 +13,7 @@ function tabulate(attachment){
 	if (attachment.comment=="") {
 			attachment.comment=Croogo.params.multiattach.noCommentLbl;
 	}
-	return '<tr><td>'+(attachment.display)+'</td><td class="mltaComment">'+attachment.comment+'</td><td>'+accion+'</td></tr>';
+	return '<tr><td>'+(attachment.display)+'</td><td class="mltaComment"><a class="editable" href="#" data-name="comment" data-url="'+Croogo.params.multiattach.proCoUrl+'?rand='+Math.random()+'" data-type="text" data-pk="'+attachment.id+'">'+attachment.comment+'</a></td><td>'+accion+'</td></tr>';
 }
 function reloadAttachmentTable(){
 		if (Croogo.params.controller=='nodes') {
@@ -32,7 +32,25 @@ function reloadAttachmentTable(){
 			tableHTML+=tableHead;
 			tableHTML+='</tbody>';
 			tableHTML+='</table>';
-			$("#multiattachments").html(tableHTML);
+			$("#multiattachments").html('');
+			myDiv  = document.createElement('div');
+			myDiv.id = 'divAttachments';
+			myDiv.innerHTML = tableHTML;
+			$("#multiattachments")[0].appendChild(myDiv);
+			$('.editable').editable(
+				{
+					ajaxOptions: {
+						type: 'get',
+					},
+					success: function(response, newValue) {
+						response=JSON.parse(response);
+						if(!response.status)
+							return response.msg;
+						else
+							return {newValue:response.newValue};
+					}
+				}
+			);
 		});
 	}
 	
@@ -40,4 +58,5 @@ function reloadAttachmentTable(){
 // Generates a table with the attachments for this Node, and sets the number of attachments up in the tab
 $(document).ready(function() {
 	reloadAttachmentTable();
+	$.fn.editable.defaults.mode = 'inline';
 });

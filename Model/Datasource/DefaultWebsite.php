@@ -82,8 +82,11 @@ class DefaultWebsite extends DataSource{
 			if(substr($content['img'][0]['src'],0,4)!=="http"){
 				$genURL=parse_url($url);
 				$path=NULL;
-				if(isset($genURL["path"]))
-					$path=str_replace(basename($genURL["path"]),'',$genURL["path"]);
+				
+				//if(isset($genURL["path"]))
+				//	$path=str_replace(basename($genURL["path"]),'',$genURL["path"]);
+				$path=$genURL["path"];	
+				//debug($genURL["path"]);
 				
 				$content['img'][0]['src']=$genURL["scheme"]."://".$genURL["host"].$path.$content['img'][0]['src'];
 			}
@@ -123,8 +126,10 @@ class DefaultWebsite extends DataSource{
 		foreach($items as $key => $item){
 			if (count($attributes)>0) {
 				foreach ($attributes as $attribute) {
-					if(is_object($item->attributes->getNamedItem($attribute)))
-						$retprev[$key][$attribute]=$item->attributes->getNamedItem($attribute)->nodeValue;
+				if(is_object($item))
+					if(is_object($item->attributes))
+						if(is_object($item->attributes->getNamedItem($attribute)))
+							$retprev[$key][$attribute]=$item->attributes->getNamedItem($attribute)->nodeValue;
 				}
 			} else {
 				if(isset($item->textContent))

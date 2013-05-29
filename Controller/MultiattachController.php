@@ -25,6 +25,7 @@ class MultiattachController extends MultiattachAppController {
 	public function beforeFilter(){
 		$this->Auth->allow('displayFile');
 		parent::beforeFilter();	
+		
 	}
 	
         
@@ -549,5 +550,19 @@ class MultiattachController extends MultiattachAppController {
 		$this->set('status',$status);
 		$this->render('Multiattach/admin_ajax_kill_attachment_json','json/admin');	
 	}
-
+	
+        /**
+         * admin_PostCommentAttachmentJson
+         * Sets the comment for an attachment
+         */
+	public function admin_PostCommentAttachmentJson(){
+		$id=(int)Sanitize::paranoid($_GET['pk']);
+		$value=Sanitize::paranoid($_GET['value'],array(' ','@','_','+','-','$','%','#','!','?','.',',','(',')','+'));
+		$this->Multiattach->read(null, $id);
+		$this->Multiattach->set('comment',$value);
+		$this->Multiattach->save();
+		$status=array('status'=>1,'newValue'=>$value);
+		$this->set('status',$status);
+		$this->render('Multiattach/admin_post_comment_attachment_json', 'json/admin');
+	}
 }
