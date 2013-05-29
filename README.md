@@ -9,6 +9,7 @@ It uses jQuery and ajax for the UI.
   * HTML5 support
   * Javascript support
   * jQuery (included in Croogo 1.5)
+  * X-editable (javascript inline editor, included from CDN)
 
 ## Installation
 
@@ -63,7 +64,6 @@ It uses jQuery and ajax for the UI.
   * It supports just JPG, GIF, PNG and BMP for images, [pdf, txt] will be uploaded but no preview will be shown
   * Currently it supports only Youtube for videos and any other website will be parsed from its meta tags. Other websites can be easily added by just creating the datasource and naming it appropriately.
   * Currently it supports 3 sizes of thumbnails, others can be hardcoded or you can wait for the feature to be developed (or better yet, develop it :D)
-  * Currently the description for the attachment can just be edited at creation time
   * Currently the attachments cant be sorted
   * Currently Images from parsed websites cant be changed
  
@@ -71,24 +71,21 @@ It uses jQuery and ajax for the UI.
 ## To do
 
   * Attachments on node creation
-  * Edit descriptions once they are uploaded
+  * ~~Edit descriptions once they are uploaded~~
   * Edit the allowed mime types without hardcoding them
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
   * Document methods in classes
   * Edit how file routes are displayed
   * Proper image detection (mime types hardcoded right now)
   * Cleanup code
-  * ~~Retrieve attachments easily~~
   * Thumbnail resizer needs to be optional (external)
   * Attach Galleries or Single pics from Facebook
   * Attach from dropbox
   * Attach from Google drive
-  * ~~Manually creating a "files" folder and setting permissions instruction.~~
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
   * Check the transparent PNG error.
-  * ~~Auth error (https://groups.google.com/d/msg/croogo/F00CZBvmf7g/OdFFmEQsoCEJ)~~
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
