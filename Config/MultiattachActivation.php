@@ -61,26 +61,65 @@ class MultiattachActivation {
 		// ACL: set ACOs with permissions
 		$controller->Croogo->addAco('Multiattach');
 		$controller->Croogo->addAco('Multiattach/Multiattach');
+                $controller->Croogo->addAco('Multiattach/Multiattach/settings');                
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add_web');
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add'); 
 		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile',array('registered', 'public')); 
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxKillAttachmentJson');
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxGetAttachmentJson');
 		
-		// Main menu: add an Example link
-		//$mainMenu = $controller->Link->Menu->findByAlias('main');
-		//$controller->Link->Behaviors->attach('Tree', array(
-		//	'scope' => array(
-		//		'Link.menu_id' => $mainMenu['Menu']['id'],
-		//	),
-		//));
-		//$controller->Link->save(array(
-		//	'menu_id' => $mainMenu['Menu']['id'],
-		//	'title' => 'Example',
-		//	'link' => 'plugin:example/controller:example/action:index',
-		//	'status' => 1,
-		//	'class' => 'example',
-		//));
+               
+                $controller->Setting->write('Multiattach.remove_settings','0' ,array('description' => 'Remove settings on deactivate','editable' => 1));               
+                $mime= array(
+			'image/gif',
+			'image/x-xbitmap',
+			'image/gi_',
+			'image/jpeg',
+			'image/pjpeg',
+			'image/jpg',
+			'image/jp_',
+			'application/jpg',
+			'application/x-jpg',
+			'image/pjpeg',
+			'image/pipeg',
+			'image/vnd.swiftview-jpeg',
+			'image/x-xbitmap',
+			'image/png',
+			'application/png',
+			'application/x-png',
+			'application/pdf',
+			'application/x-pdf',
+			'application/acrobat',
+			'applications/vnd.pdf',
+			'text/pdf',
+			'text/x-pdf',
+			'image/bmp',
+			'image/x-bmp',
+			'image/x-bitmap',
+			'image/x-xbitmap',
+			'image/x-win-bitmap',
+			'image/x-windows-bmp',
+			'image/ms-bmp',
+			'image/x-ms-bmp',
+			'application/bmp',
+			'application/x-bmp',
+			'application/x-win-bitmap',
+			'image/bmp',
+			'image/x-bmp',
+			'image/x-bitmap',
+			'image/x-xbitmap',
+			'image/x-win-bitmap',
+			'image/x-windows-bmp',
+			'image/ms-bmp',
+			'image/x-ms-bmp',
+			'application/bmp',
+			'application/x-bmp',
+			'application/x-win-bitmap',
+			'text/plain','application/txt','browser/internal','text/anytext','widetext/plain','widetext/paragraph',
+		);
+                $mime=json_encode($mime);
+                $controller->Setting->write('Multiattach.allowed_mime'   ,$mime  ,array('description' => 'Allowed MIME types for upload', 'editable' => 0));
+                
 	}
 
 /**
@@ -102,7 +141,13 @@ class MultiattachActivation {
 	public function onDeactivation(&$controller) {
 		// ACL: remove ACOs with permissions
 		$controller->Croogo->removeAco('Multiattach'); // ExampleController ACO and it's actions will be removed
-
+                
+                // Remove Allowed MIME types
+                if(Configure::read('Multiattach.remove_settings') == '1' ){
+                     $controller->Setting->deleteKey('Multiattach.allowed_mime');
+                }
+                
+                
 		// Main menu: delete Example link
 		//$link = $controller->Link->find('first', array(
 		//	'conditions' => array(

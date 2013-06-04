@@ -21,10 +21,21 @@ class MultiattachController extends MultiattachAppController {
 	public $name = 'Multiattach';
 
 	public $uses = array('Setting','Multiattach.Multiattach');
-	
+	public $defaults=array();
+        public $pluginPrefix="Multiattach";
+        
 	public function beforeFilter(){
 		$this->Auth->allow('displayFile');
 		parent::beforeFilter();	
+                
+                $this->loadModel('Settings.Setting');
+                $settings = $this->Setting->find('all', array('conditions'=>array('Setting.key LIKE'=>$this->pluginPrefix.'.%')));
+		foreach($settings as $setting){
+			$cleaned_key = explode('.', $setting['Setting']['key']);
+			$this->defaults[$cleaned_key[1]]['id'] = $setting['Setting']['id'];
+			$this->defaults[$cleaned_key[1]]['value'] = $setting['Setting']['value'];
+		}
+                $this->set('defaults', $this->defaults);
 		
 	}
 	
@@ -59,54 +70,7 @@ class MultiattachController extends MultiattachAppController {
 		// list of allowed file types
 		// gif, jpg, bmp, png, pdf, txt
 		// http://filext.com/file-extension/PNG
-		$allowed = array(
-			'image/gif',
-			'image/x-xbitmap',
-			'image/gi_',
-			'image/jpeg',
-			'image/pjpeg',
-			'image/jpg',
-			'image/jp_',
-			'application/jpg',
-			'application/x-jpg',
-			'image/pjpeg',
-			'image/pipeg',
-			'image/vnd.swiftview-jpeg',
-			'image/x-xbitmap',
-			'image/png',
-			'application/png',
-			'application/x-png',
-			'application/pdf',
-			'application/x-pdf',
-			'application/acrobat',
-			'applications/vnd.pdf',
-			'text/pdf',
-			'text/x-pdf',
-			'image/bmp',
-			'image/x-bmp',
-			'image/x-bitmap',
-			'image/x-xbitmap',
-			'image/x-win-bitmap',
-			'image/x-windows-bmp',
-			'image/ms-bmp',
-			'image/x-ms-bmp',
-			'application/bmp',
-			'application/x-bmp',
-			'application/x-win-bitmap',
-			'image/bmp',
-			'image/x-bmp',
-			'image/x-bitmap',
-			'image/x-xbitmap',
-			'image/x-win-bitmap',
-			'image/x-windows-bmp',
-			'image/ms-bmp',
-			'image/x-ms-bmp',
-			'application/bmp',
-			'application/x-bmp',
-			'application/x-win-bitmap',
-			'text/plain','application/txt','browser/internal','text/anytext','widetext/plain','widetext/paragraph',
-			);
-		
+		$allowed=json_decode(Configure::read('Multiattach.allowed_mime'),true);
 		// loop through and deal with the files
 		foreach($formdata["name"] as $key => $file) {
 			// replace spaces with underscores
@@ -115,11 +79,9 @@ class MultiattachController extends MultiattachAppController {
 			// assume filetype is false
 			$typeOK = false;
 			// check filetype is ok
-			foreach($allowed as $type) {
-				if($type == $formdata['type'][$key]) {
-					$typeOK = true;
-					break;
-				}
+                        if(in_array($formdata['type'][$key],$allowed)){
+                            $typeOK = true;
+                           
 			}
 			// if file type ok upload the file
 			if($typeOK) {
@@ -565,4 +527,28 @@ class MultiattachController extends MultiattachAppController {
 		$this->set('status',$status);
 		$this->render('Multiattach/admin_post_comment_attachment_json', 'json/admin');
 	}
+        /**
+         * admin_settings
+         * Multiattach settings
+         */
+        public function admin_settings(){
+           $this->set('title_for_layout', __('', true));
+           
+           if(!empty($this->data)) {
+                $settings =& ClassRegistry::init('Setting');
+                foreach ($this->data as $key =>$setting) {
+                    
+                    $settings->id = $setting['id'];
+                    
+                    if($key=="allowed_mime") {
+                        $setting['value']=preg_split('/\r\n|[\r\n]/', $setting['value']);
+                        $setting['value']=json_encode($setting['value']);
+                    }
+                    $settings->saveField('value',$setting['value']);
+                     $this->redirect(array('action'=>'settings'));
+                }            
+                $this->Session->setFlash(__('Multiattach settings have been saved', true));
+            }
+           $this->set('inputs', $this->defaults);
+        }
 }

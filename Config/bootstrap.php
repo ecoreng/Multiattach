@@ -11,9 +11,6 @@ Croogo::hookRoutes('Multiattach');
  *
  * This plugin's Example component will be loaded in Node
  */
-// if croogo < 1.5 then the next line should be uncommented
-//Croogo::hookComponent('Node', 'Multiattach.Multiattach');
-// else the next line should be uncommented
 Croogo::hookComponent('Nodes', 'Multiattach.Multiattach');
 
 
@@ -37,3 +34,11 @@ Croogo::hookBehavior('Node', 'Multiattach.Multiattach', array());
 // This is going to be enabled when i get an AJAX interface so when the page updates you dont lose the info you just entered in the node
 //Croogo::hookAdminTab('Nodes/admin_add', 'Attachments', 'Multiattach.admin_tab_node');
 Croogo::hookAdminTab('Nodes/admin_edit', 'Attachments', 'multiattach.admin_tab_node');
+
+
+
+  CroogoNav::add('settings.children.multiattach',array(
+  		'title' => __('Multiattach'),
+        'url' => array('plugin' => 'Multiattach', 'controller' => 'Multiattach', 'action' => 'settings'),
+        'access' => array('admin')
+  ));
