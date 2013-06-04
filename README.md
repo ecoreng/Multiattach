@@ -58,10 +58,11 @@ It uses jQuery and ajax for the UI.
   * Parsed websites are stored in JSON inside the database.
   * Website parsers can be added (if you want to attach Vimeo videos, just get a Vimeo datasource and with little changes it can be done)
   * Plugin activation also creates database
+  * Allowed mime types editor for file uploads
 
 ## Limitations
 
-  * It supports just JPG, GIF, PNG and BMP for images, [pdf, txt] will be uploaded but no preview will be shown
+  * By default it supports JPG, GIF, PNG and BMP for images, pdf, txt files
   * Currently it supports only Youtube for videos and any other website will be parsed from its meta tags. Other websites can be easily added by just creating the datasource and naming it appropriately.
   * Currently it supports 3 sizes of thumbnails, others can be hardcoded or you can wait for the feature to be developed (or better yet, develop it :D)
   * Currently the attachments cant be sorted
@@ -72,11 +73,11 @@ It uses jQuery and ajax for the UI.
 
   * Attachments on node creation
   * ~~Edit descriptions once they are uploaded~~
-  * Edit the allowed mime types without hardcoding them
+  * ~~Edit the allowed mime types without hardcoding them~~
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
   * Document methods in classes
   * Edit how file routes are displayed
-  * Proper image detection (mime types hardcoded right now)
+  * Proper image detection
   * Cleanup code
   * Thumbnail resizer needs to be optional (external)
   * Attach Galleries or Single pics from Facebook
@@ -175,10 +176,9 @@ $size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array(
 
 ### How to upload different file types
 
-  * Open Multiattach controller (Plugins/Multiattach/Controller/MultiattachController.php)
-  * Look for the _uploadFiles method 
-  * Look for the $allowed = array(...
-  * Add the mime type to the list
+  * Edit Multiattach settings on the settings menu
+  * Add your mime types in a new line
+  * Save the config
 
 ### How to upload bigger files
 
