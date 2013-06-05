@@ -67,6 +67,10 @@ class MultiattachActivation {
 		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile',array('registered', 'public')); 
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxKillAttachmentJson');
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxGetAttachmentJson');
+                $controller->Croogo->addAco('Multiattach/Multiattach/admin_PostCommentAttachmentJson');
+                $controller->Croogo->addAco('Multiattach/Multiattach/admin_settings');
+                
+                
 		
                
                 $controller->Setting->write('Multiattach.remove_settings','0' ,array('description' => 'Remove settings on deactivate','editable' => 1));               
