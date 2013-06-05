@@ -61,7 +61,6 @@ class MultiattachActivation {
 		// ACL: set ACOs with permissions
 		$controller->Croogo->addAco('Multiattach');
 		$controller->Croogo->addAco('Multiattach/Multiattach');
-                $controller->Croogo->addAco('Multiattach/Multiattach/settings');                
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add_web');
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add'); 
 		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile',array('registered', 'public')); 
