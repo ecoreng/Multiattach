@@ -15,6 +15,7 @@ class MultiattachEventHandler extends Object implements CakeEventListener {
 			),
 		);
 	}
+
 	public function onNodeAfterAdd($event){
 		// Not really implemented yet
 	}

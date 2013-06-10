@@ -12,7 +12,7 @@
  */
 class MultiattachHelper extends AppHelper {
 	var $attachments=array();
-
+        
 	public function set($attachments = NULL){
 		$this->attachments=$attachments;
 	}

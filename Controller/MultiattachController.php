@@ -490,7 +490,34 @@ class MultiattachController extends MultiattachAppController {
 		
 		$this->render('Multiattach/admin_ajax_get_attachment_json','json/admin');
 	}
-	
+	public function getLatest(){
+            
+			if (empty($this->request->params['requested'])) {
+				throw new ForbiddenException();
+			}
+			
+			$this->loadModel('Nodes');
+			$this->Nodes->Behaviors->attach('Multiattach.Multiattach');
+			$settings=$this->request->params['named'];
+			$this->Nodes->recursive=1;
+			if($settings['node_id']==0){
+				$nodes=$this->Nodes->find('all', array('conditions'=>array('type'=>$settings['node_type']),'order' => 'Nodes.created DESC', 'limit' => 10));
+				$attachments=array();
+				foreach($nodes as $node){
+					$attachments=array_merge($attachments,$node["Multiattach"]);
+					if(count($attachments)>=$settings['photo_length'])
+						break;
+				}
+				
+			} else {
+				$nodes=$this->Nodes->findById($settings['node_id']);
+				$attachments=$nodes["Multiattach"];
+			}
+			$attachments=array_slice($attachments,0,$settings["photo_length"]);
+			$this->Nodes->Behaviors->detach('Multiattach.Multiattach');
+			return $attachments;
+        }
+        
         /**
          * admin_AjaxKillAttachmentJson
          * Deletes the attachments via ajax, return json status
