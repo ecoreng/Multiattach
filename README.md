@@ -98,9 +98,11 @@ Use the Element: photo_grid
 
 Included theres an element called photo_grid that takes some parameters to build a view of the lastest pictures attached to a custom node_type. To use the element insert this in to a block:
 
-```[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" 
+```
+[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" 
 photo_length="{<int>}" container_class="{<string>}" photo_class="{<string>}" html5="{1|0}" 
-thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}"]```
+thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}"]
+```
 
 node_id: set the node ID from where you want to extract the latest photos, or use 0 (zero) to extract the lastest photos from all nodes OR..
 node_type: node type from which you want to extract the lastest photos.
