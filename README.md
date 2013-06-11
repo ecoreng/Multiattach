@@ -98,11 +98,16 @@ It uses jQuery and ajax for the UI.
 Use the Elements: photo_grid, video_grid
 
 Included there are 2 elements called photo_grid and video_grid that take some parameters to build a view of the lastest pictures or videos attached to a custom node_type. To use the elements insert these in to a block:
-
-[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" length="{<int>}" container_class="{<string>}" single_class="{<string>}" html5="{1|0}" thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}" filter="{<field>:<regex to match value>};"]
-
-[element:video_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" length="{<int>}" container_class="{<string>}" single_class="{<string>}" filter="{content[<field>]:<regex to match value>};"]
-
+```
+[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}"
+length="{<int>}" container_class="{<string>}" single_class="{<string>}" html5="{1|0}" 
+thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}" filter="{<field>:<regex to match value>};"]
+```
+```
+[element:video_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}"
+length="{<int>}" container_class="{<string>}" single_class="{<string>}"
+filter="{content[<field>]:<regex to match value>};"]
+```
 
   * node_id: (Default: 0) set the node ID from where you want to extract the latest photos, or use 0 (zero) to extract the lastest photos from all nodes OR..
   * node_type: (Default: node) node type from which you want to extract the lastest photos.
