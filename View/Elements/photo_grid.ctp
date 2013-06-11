@@ -1,14 +1,16 @@
 <?php
-
-$settings['controller']=compact('node_id','node_type','photo_length');
-$settings['view']=compact('container_class','photo_class','thumbnail_alias','html5','link');
+                               
+$settings['controller']=compact('node_id','node_type','length','filter');
+$settings['view']=compact('container_class','single_class','thumbnail_alias','html5','link');
 $settings_defaults['controller']=array(
     'node_id'=>0,
     'node_type'=>'node',
-    'photo_length'=>4);
+    'length'=>4,
+    'filter'=>'mime:#image#i;',
+   );
 $settings_defaults['view']=array(
     'container_class'=>'element_container',
-    'photo_class'=>'element_photo',
+    'single_class'=>'element_photo',
     'thumbnail_alias'=>'thumbnail',
     'html5'=>false,
     'link'=>'0',
@@ -57,7 +59,7 @@ foreach ($photos as $photo) {
     }
     
     ?>
-    <<?php echo $htmlTagPhoto; ?> class="<?php echo $settings['view']['photo_class'] ?>">
+    <<?php echo $htmlTagPhoto; ?> class="<?php echo $settings['view']['single_class'] ?>">
         <?php if($link!=NULL){ ?><a href="<?php echo $link; ?>"><?php } ?>
             <img src="<?php echo $thumb;?>" alt="<?php echo Configure::read('Site.title'); ?>" >
         <?php if($link!=NULL){ ?></a><?php } ?>

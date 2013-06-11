@@ -33,7 +33,7 @@ Croogo::hookBehavior('Node', 'Multiattach.Multiattach', array());
  
 // This is going to be enabled when i get an AJAX interface so when the page updates you dont lose the info you just entered in the node
 //Croogo::hookAdminTab('Nodes/admin_add', 'Attachments', 'Multiattach.admin_tab_node');
-Croogo::hookAdminTab('Nodes/admin_edit', 'Attachments', 'multiattach.admin_tab_node');
+Croogo::hookAdminTab('Nodes/admin_edit', 'Attachments', 'Multiattach.admin_tab_node');
 
 
 

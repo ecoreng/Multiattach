@@ -504,8 +504,34 @@ class MultiattachController extends MultiattachAppController {
 				$nodes=$this->Nodes->find('all', array('conditions'=>array('type'=>$settings['node_type']),'order' => 'Nodes.created DESC', 'limit' => 10));
 				$attachments=array();
 				foreach($nodes as $node){
-					$attachments=array_merge($attachments,$node["Multiattach"]);
-					if(count($attachments)>=$settings['photo_length'])
+					foreach($node["Multiattach"] as $attachment){
+						$filters=explode(";",$settings["filter"]);
+						$pass=1;
+						foreach($filters as $filter){
+							if($filter=="")
+								break;
+							$filter=explode(":",$filter);
+							$field=$filter[0];
+							$value=$filter[1];
+							if(array_key_exists($field,$attachment["Multiattach"])){
+								if(substr($field,0,8)=="content["){
+									$content=json_decode($attachment["Multiattach"]["content"],true);
+									$field=str_replace("]","",str_replace("content[","",$field));
+									if(!preg_match($value,$content[$field])){
+										$pass=0;
+									}
+								} else {
+									if(!preg_match($value,$attachment["Multiattach"][$field])){
+										$pass=0;
+									}
+								}
+							}
+						}
+						if($pass){
+						$attachments=array_merge($attachments,$node["Multiattach"]);
+						}
+					}
+					if(count($attachments)>=$settings['length'])
 						break;
 				}
 				
@@ -513,11 +539,11 @@ class MultiattachController extends MultiattachAppController {
 				$nodes=$this->Nodes->findById($settings['node_id']);
 				$attachments=$nodes["Multiattach"];
 			}
-			$attachments=array_slice($attachments,0,$settings["photo_length"]);
+			$attachments=array_slice($attachments,0,$settings["length"]);
 			$this->Nodes->Behaviors->detach('Multiattach.Multiattach');
 			return $attachments;
         }
-        
+       
         /**
          * admin_AjaxKillAttachmentJson
          * Deletes the attachments via ajax, return json status
