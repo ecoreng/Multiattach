@@ -94,6 +94,7 @@ It uses jQuery and ajax for the UI.
 
 ## How to retrieve Attachments
 
+<<<<<<< HEAD
 Use the Elements: photo_grid, video_grid
 
 Included there are 2 elements called photo_grid and video_grid that take some parameters to build a view of the lastest pictures or videos attached to a custom node_type. To use the elements insert these in to a block:
@@ -126,6 +127,29 @@ Get the last video (default value for length:1, not shown) from node type: video
 [element:video_grid  plugin="Multiattach" node_type="video" container_class="videos" single_class="video-item"]
 ```
 
+=======
+Use the Element: photo_grid
+
+Included theres an element called photo_grid that takes some parameters to build a view of the lastest pictures attached to a custom node_type. To use the element insert this in to a block:
+
+```
+[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" 
+photo_length="{<int>}" container_class="{<string>}" photo_class="{<string>}" html5="{1|0}" 
+thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}"]
+```
+
+node_id: set the node ID from where you want to extract the latest photos, or use 0 (zero) to extract the lastest photos from all nodes OR..
+node_type: node type from which you want to extract the lastest photos.
+photo_length: the MAX number of images to extract, if there arent enough imagen this number wont be reached.
+container_class: the class for the container parent of all the images
+photo_class: the class for the container parent to a single <img> tag
+html5: 1 to use the <figure> tag instead of <div>, 0 otherwise
+thumbnail_alias: the alias for the photo size (see below)
+link: either 0 for no link, node to link to the node that contains that image, photo to link the original version of that file or a sting that contains a relative or absolute url (this last will option will use the same url for all the files).
+[limitations]
+currently this element cant discrimiate between images or other files, please use on nodes that contain only image files, for example: galleries. Better filtering is available if you use the helper.
+(this will be fixed)
+>>>>>>> 9f61c388c4ceb8b784eac8006435c07699612653
 
 Use the helper
 
