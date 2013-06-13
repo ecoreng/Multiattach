@@ -74,7 +74,6 @@ It uses jQuery and ajax for the UI.
 ## To do
 
   * Attachments on node creation
-  * ~~Edit the allowed mime types without hardcoding them~~
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
   * Document methods in classes
   * Edit how file routes are displayed
@@ -90,33 +89,37 @@ It uses jQuery and ajax for the UI.
   * Check the transparent PNG error.
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
-  * Filtering capabilities for the Element: photo_grid
+  * ~~Filtering capabilities for the Element: photo_grid~~
 
 ## How to retrieve Attachments
 
-<<<<<<< HEAD
 Use the Elements: photo_grid, video_grid
 
 Included there are 2 elements called photo_grid and video_grid that take some parameters to build a view of the lastest pictures or videos attached to a custom node_type. To use the elements insert these in to a block:
-
-[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" length="{<int>}" container_class="{<string>}" single_class="{<string>}" html5="{1|0}" thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}" filter="{<field>:<regex to match value>};"]
-
-[element:video_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" length="{<int>}" container_class="{<string>}" single_class="{<string>}" filter="{content[<field>]:<regex to match value>};"]
-
+```
+[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}"
+length="{<int>}" container_class="{<string>}" single_class="{<string>}" html5="{1|0}" 
+thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}" filter="{<field>:<regex to match value>};"]
+```
+```
+[element:video_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}"
+length="{<int>}" container_class="{<string>}" single_class="{<string>}"
+filter="{content[<field>]:<regex to match value>};"]
+```
 
   * node_id: (Default: 0) set the node ID from where you want to extract the latest photos, or use 0 (zero) to extract the lastest photos from all nodes OR..
   * node_type: (Default: node) node type from which you want to extract the lastest photos.
   * length: (Default:4 in photo_grid, 1 in video_grid) the MAX number of images to extract, if there arent enough imagen this number wont be reached.
   * container_class: (Default: element_container) the class for the container parent of all the images
-  * single_class: (Default: element_photo in photo_grid, element_video in video_grid) the class for the container parent to a single <img> tag
-  * html5: (Default: 1, exclusive of photo_grid) 1 to use the <figure> tag instead of <div>, 0 otherwise
+  * single_class: (Default: element_photo in photo_grid, element_video in video_grid) the class for the container parent to a single &lt;img&gt; tag
+  * html5: (Default: 1, exclusive of photo_grid) 1 to use the &lt;figure&gt; tag instead of &lt;div&gt;, 0 otherwise
   * thumbnail_alias: (Default: thumbnail, exclusive of photo_grid) the alias for the photo size (see below)
   * link: (Default: 0, exclusive for photo_grid) either 0 for no link, node to link to the node that contains that image, photo to link the original version of that file or a sting that contains a relative or absolute url (this last will option will use the same url for all the files).
-  * filter: (Default: mime:#image#i; for photo_grid, content[video]:#youtube.com#i; for video_grid) its a parameter formed by the field you want to use to filter the cotnent, and the regex to validate its content. In the video_grid element its going to be more useful if you filter the content of the parsed website (i.e. youtube video) in the "content" field, but inside there are other fields, thats why you should use content[<field>]:<regex to match value>.
+  * filter: (Default: mime:#image#i; for photo_grid, content[video]:#youtube.com#i; for video_grid) its a parameter formed by the field you want to use to filter the cotnent, and the regex to validate its content. In the video_grid element its going to be more useful if you filter the content of the parsed website (i.e. youtube video) in the "content" field, but inside there are other fields, thats why you should use content[&lt;field&gt;]:&lt;regex to match value&gt;.
 
 Examples of elements:
 
-Create an element which extracts the 5 last photos of all photo-gallery type nodes, the container class will be "gallery" and every single picture should have the "photo-item" class, use <figure> for each picture instead of a <div>, and use the thumbnail alias: square-thumb for the thumbnails which are going to link to "/photo-gallery":
+Create an element which extracts the 5 last photos of all photo-gallery type nodes, the container class will be "gallery" and every single picture should have the "photo-item" class, use &lt;figure&gt; for each picture instead of a &lt;div&gt;, and use the thumbnail alias: square-thumb for the thumbnails which are going to link to "/photo-gallery":
 
 ```
 [element:photo_grid plugin="Multiattach" node_id="0" node_type="photo-gallery" length="5" container_class="gallery" single_class="photo-item" html5="1" thumbnail_alias="square-thumb" link="/photo-gallery"]
@@ -126,30 +129,6 @@ Get the last video (default value for length:1, not shown) from node type: video
 ```
 [element:video_grid  plugin="Multiattach" node_type="video" container_class="videos" single_class="video-item"]
 ```
-
-=======
-Use the Element: photo_grid
-
-Included theres an element called photo_grid that takes some parameters to build a view of the lastest pictures attached to a custom node_type. To use the element insert this in to a block:
-
-```
-[element:photo_grid plugin="Multiattach" node_id="{0|<int>}" node_type="{<node-type>}" 
-photo_length="{<int>}" container_class="{<string>}" photo_class="{<string>}" html5="{1|0}" 
-thumbnail_alias="{thumbnail-alias}" link="{<link>|0|node|photo}"]
-```
-
-node_id: set the node ID from where you want to extract the latest photos, or use 0 (zero) to extract the lastest photos from all nodes OR..
-node_type: node type from which you want to extract the lastest photos.
-photo_length: the MAX number of images to extract, if there arent enough imagen this number wont be reached.
-container_class: the class for the container parent of all the images
-photo_class: the class for the container parent to a single <img> tag
-html5: 1 to use the <figure> tag instead of <div>, 0 otherwise
-thumbnail_alias: the alias for the photo size (see below)
-link: either 0 for no link, node to link to the node that contains that image, photo to link the original version of that file or a sting that contains a relative or absolute url (this last will option will use the same url for all the files).
-[limitations]
-currently this element cant discrimiate between images or other files, please use on nodes that contain only image files, for example: galleries. Better filtering is available if you use the helper.
-(this will be fixed)
->>>>>>> 9f61c388c4ceb8b784eac8006435c07699612653
 
 Use the helper
 
