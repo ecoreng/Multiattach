@@ -38,6 +38,7 @@ foreach ($photos as $photo) {
 	'filename'=>$photo["Multiattach"]['filename']
 	);
     $thumb=$this->Html->url($photo_url+array('dimension'=>$settings['view']['thumbnail_alias']));
+    $rel=NULL;
     switch($settings['view']['link']){
         default:
             if(substr($settings['view']['link'],0,1)=="/")
@@ -50,6 +51,10 @@ foreach ($photos as $photo) {
         case '0':
             $link=NULL;
             break;
+        case 'lightbox':
+            $rel='rel="lightbox[element]"';
+            $link=$this->Html->url($photo_url+array('dimension'=>'screen'));
+            break;
         case 'photo':
             $link=$this->Html->url($photo_url+array('dimension'=>'normal'));
             break;
@@ -60,7 +65,7 @@ foreach ($photos as $photo) {
     
     ?>
     <<?php echo $htmlTagPhoto; ?> class="<?php echo $settings['view']['single_class'] ?>">
-        <?php if($link!=NULL){ ?><a href="<?php echo $link; ?>"><?php } ?>
+        <?php if($link!=NULL){ ?><a <?php echo $rel; ?> href="<?php echo $link; ?>"><?php } ?>
             <img src="<?php echo $thumb;?>" alt="<?php echo Configure::read('Site.title'); ?>" >
         <?php if($link!=NULL){ ?></a><?php } ?>
     </<?php echo $htmlTagPhoto; ?>>
@@ -68,3 +73,4 @@ foreach ($photos as $photo) {
 }
 ?>
 </div>
+

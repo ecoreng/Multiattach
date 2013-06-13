@@ -414,6 +414,14 @@ class MultiattachController extends MultiattachAppController {
             $image = call_user_func('imagecreatefrom'.$types[$type], $url); 
             if (function_exists("imagecreatetruecolor")) {
                 $temp = imagecreatetruecolor($dst_w, $dst_h); 
+                
+                if($types[$type]=="gif" || $types[$type]=="png"){
+                    imagealphablending($temp, false);
+                    imagesavealpha($temp,true);
+                    $transparent = imagecolorallocatealpha($temp, 255, 255, 255, 127);
+                    imagefilledrectangle($temp, 0, 0, $src_x, $src_y, $transparent);
+                }
+                
                 imagecopyresampled($temp, $image, 0, 0, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h); 
             } else { 
                 $temp = imagecreate ($dst_w, $dst_h); 
