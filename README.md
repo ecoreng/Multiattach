@@ -59,7 +59,7 @@ It uses jQuery and ajax for the UI.
   * Website parsers can be added (if you want to attach Vimeo videos, just get a Vimeo datasource and with little changes it can be done)
   * Plugin activation also creates database
   * Allowed mime types editor for file uploads
-  * Element to get latest photo attachments from nodes
+  * Elements to get the latest photos or video attachments from nodes
   
 
 ## Limitations
@@ -86,10 +86,9 @@ It uses jQuery and ajax for the UI.
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
-  * Check the transparent PNG error.
+  * ~~Check the transparent PNG error.~~
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
-  * ~~Filtering capabilities for the Element: photo_grid~~
 
 ## How to retrieve Attachments
 
