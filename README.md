@@ -152,15 +152,17 @@ Get the attached images:
         $this->Multiattach->set($node["Multiattach"]);
         $images=$this->Multiattach->filter(array('mime'=>'#image#i'));
         foreach($images as $image) {
-           $link=$this->Html->url(array(
- 														'plugin'=>'Multiattach',
-															'controller'=>'Multiattach',
-															'action'=>'displayFile', 
-															'admin'=>false,
-															'dimension'=>'normal',
-															'filename'=>$image["Multiattach"]['filename']
-														));
-              ?><img src="<?php echo $link; ?>" alt="attached image" /><?php
+        	$link=$this->Html->url(array(
+ 			'plugin'=>'Multiattach',
+			'controller'=>'Multiattach',
+			'action'=>'displayFile', 
+			'admin'=>false,
+			'dimension'=>'normal',
+			'filename'=>$image["Multiattach"]['filename']
+		));
+        ?>
+        <img src="<?php echo $link; ?>" alt="attached image" />
+        <?php
         }
 ```
 
