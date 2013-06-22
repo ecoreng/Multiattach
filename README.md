@@ -55,7 +55,7 @@ It uses jQuery and ajax for the UI.
   * Upload multiple files at a time (requires html5 enabled browser).
   * Parses website information to suggest its contents, and the information is editable.
   * The default website parser reads meta tags (open graph, twitter and regular ones), heading tags, p and img tags to look for information. 
-  * Parsed websites are stored in JSON inside the database.
+  * Parsed websites info is stored in JSON inside the database.
   * Website parsers can be added (if you want to attach Vimeo videos, just get a Vimeo datasource and with little changes it can be done)
   * Plugin activation also creates database
   * Allowed mime types editor for file uploads
@@ -75,10 +75,10 @@ It uses jQuery and ajax for the UI.
 
   * Attachments on node creation
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
-  * Document methods in classes
+  * Comply with cakephp standards
+  * Use the skinny controller / fat model philosophy
   * Edit how file routes are displayed
   * Proper image detection
-  * Cleanup code
   * Thumbnail resizer needs to be optional (external)
   * Attach Galleries or Single pics from Facebook
   * Attach from dropbox
@@ -86,7 +86,6 @@ It uses jQuery and ajax for the UI.
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
-  * ~~Check the transparent PNG error.~~
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
