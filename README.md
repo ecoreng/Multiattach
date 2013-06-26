@@ -86,6 +86,7 @@ It uses jQuery and ajax for the UI.
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
+  * Remove screen after upload, comments can now be added in the table .. useless now.
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
