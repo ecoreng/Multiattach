@@ -133,37 +133,40 @@ Use the helper
 
 The Multiattach array is already "linked" to the node model, so use the set method to set the attachments in a helper var
 then you can use one of two methods that work similar:
-  * $this->Multiattach->filter(array('key'=>'regex to compare value')) : Useful for getting file attachments (compare mime types, filenames, etc.)
-  * $this->Multiattach->filterWebContent(array('key'=>'regex to compare value parsed from web')) : Useful for getting web attachments as it compares values parsed from the web (url, player url, title, description, any other.. depends on the datasource)
+  * $this->Multiattach->filter(array('key' => 'regex to compare value')) : Useful for getting file attachments (compare mime types, filenames, etc.)
+  * $this->Multiattach->filterWebContent(array('key' => 'regex to compare value parsed from web')) : Useful for getting web attachments as it compares values parsed from the web (url, player url, title, description, any other.. depends on the datasource)
 
 Get attached videos from youtube:
 
 ```
-        $this->Multiattach->set($node["Multiattach"]);
-        $youtubeVids=$this->Multiattach->filterWebContent(array('player'=>'/youtube.com/i'));
-        foreach($youtubeVids as $ytv) {
-         ?><iframe src="<?php echo $ytv["Multiattach"]["content"]["player"];?>"></iframe><?php
-        }
+	$this->Helpers->load('Multiattach.Multiattach');
+	$this->Multiattach->set($node["Multiattach"]);
+	$youtubeVids = $this->Multiattach->filterWebContent(array('player' => '/youtube.com/i'));
+	foreach ($youtubeVids as $ytv) {
+		?><iframe src="<?php echo $ytv["Multiattach"]["content"]["player"];?>"></iframe><?php
+	}
 ```
 
 Get the attached images:
 
 ```
-        $this->Multiattach->set($node["Multiattach"]);
-        $images=$this->Multiattach->filter(array('mime'=>'#image#i'));
-        foreach($images as $image) {
-        	$link=$this->Html->url(array(
- 			'plugin'=>'Multiattach',
-			'controller'=>'Multiattach',
-			'action'=>'displayFile', 
-			'admin'=>false,
-			'dimension'=>'normal',
-			'filename'=>$image["Multiattach"]['filename']
-		));
+<?php
+	$this->Helpers->load('Multiattach.Multiattach');
+	$this->Multiattach->set($node["Multiattach"]);
+	$images = $this->Multiattach->filter(array('mime'=>'#image#i'));
+	foreach ($images as $image) {
+		$imageF = array(
+			'plugin' => 'Multiattach',
+			'controller' => 'Multiattach',
+			'action' => 'displayFile', 
+			'admin' => false,
+			'filename' => $image["Multiattach"]['filename']
+        );
         ?>
-        <img src="<?php echo $link; ?>" alt="attached image" />
-        <?php
-        }
+		<img src="<?php echo $this->Html->url($imageF + array('dimension' => 'main_slide') ); ?>" alt="Villas at Renaissance - <?php echo $image["Multiattach"]['comment']; ?>" />
+		<?php
+	}
+?>
 ```
 
 ## Extend its use
@@ -200,7 +203,7 @@ switch($dimension){
    * .. Or implement this event to return a array with 2 elements (width,height):
 
 ```
-$size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));
+$size = Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));
 ```
 
 ### How to add a datasource:
