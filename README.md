@@ -154,16 +154,14 @@ Get the attached images:
 	$this->Helpers->load('Multiattach.Multiattach');
 	$this->Multiattach->set($node["Multiattach"]);
 	$images = $this->Multiattach->filter(array('mime'=>'#image#i'));
-	foreach ($images as $image) {
-		$imageF = array(
-			'plugin' => 'Multiattach',
-			'controller' => 'Multiattach',
-			'action' => 'displayFile', 
-			'admin' => false,
-			'filename' => $image["Multiattach"]['filename']
+	$imageF = array(
+		'plugin' => 'Multiattach',
+		'controller' => 'Multiattach',
+		'action' => 'displayFile', 
+		'admin' => false,
         );
-        ?>
-		<img src="<?php echo $this->Html->url($imageF + array('dimension' => 'main_slide') ); ?>" alt="Villas at Renaissance - <?php echo $image["Multiattach"]['comment']; ?>" />
+	foreach ($images as $image) {
+		<img src="<?php echo $this->Html->url($imageF + array('dimension' => 'main_slide', 'filename' => $image["Multiattach"]['filename']) ); ?>" alt="Villas at Renaissance - <?php echo $image["Multiattach"]['comment']; ?>" />
 		<?php
 	}
 ?>
