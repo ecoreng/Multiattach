@@ -62,8 +62,12 @@ It uses jQuery and ajax for the UI.
   * Allowed mime types editor for file uploads
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   * Element to get latest photo attachments from nodes
   * Sortable attachments
+=======
+  * Elements to get the latest photos or video attachments from nodes
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 =======
   * Elements to get the latest photos or video attachments from nodes
 >>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
@@ -87,6 +91,11 @@ It uses jQuery and ajax for the UI.
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+  * Comply with cakephp standards
+  * Use the skinny controller / fat model philosophy
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 =======
   * Comply with cakephp standards
   * Use the skinny controller / fat model philosophy
@@ -106,9 +115,15 @@ It uses jQuery and ajax for the UI.
   * File picker for previously uploaded attachments.
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
 
+=======
+  * Remove screen after upload, comments can now be added in the table .. useless now.
+  * * Thumbnail sizes editable
+  * * Reroute cache (thumbnails) folder to default cakephp cache folder
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 =======
   * Remove screen after upload, comments can now be added in the table .. useless now.
   * * Thumbnail sizes editable
