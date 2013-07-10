@@ -60,20 +60,7 @@ It uses jQuery and ajax for the UI.
   * Website parsers can be added (if you want to attach Vimeo videos, just get a Vimeo datasource and with little changes it can be done)
   * Plugin activation also creates database
   * Allowed mime types editor for file uploads
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  * Element to get latest photo attachments from nodes
-  * Sortable attachments
-=======
   * Elements to get the latest photos or video attachments from nodes
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Elements to get the latest photos or video attachments from nodes
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Elements to get the latest photos or video attachments from nodes
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
   
 
 ## Limitations
@@ -89,21 +76,6 @@ It uses jQuery and ajax for the UI.
 
   * Attachments on node creation
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  * Comply with cakephp standards
-  * Use the skinny controller / fat model philosophy
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Comply with cakephp standards
-  * Use the skinny controller / fat model philosophy
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Comply with cakephp standards
-  * Use the skinny controller / fat model philosophy
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
   * Edit how file routes are displayed
   * Proper image detection
   * Thumbnail resizer needs to be optional (external)
@@ -113,27 +85,8 @@ It uses jQuery and ajax for the UI.
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
-
-=======
-  * Remove screen after upload, comments can now be added in the table .. useless now.
-  * * Thumbnail sizes editable
-  * * Reroute cache (thumbnails) folder to default cakephp cache folder
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Remove screen after upload, comments can now be added in the table .. useless now.
-  * * Thumbnail sizes editable
-  * * Reroute cache (thumbnails) folder to default cakephp cache folder
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
-=======
-  * Remove screen after upload, comments can now be added in the table .. useless now.
-  * * Thumbnail sizes editable
-  * * Reroute cache (thumbnails) folder to default cakephp cache folder
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 
 ## How to retrieve Attachments
 
@@ -221,38 +174,6 @@ Get the attached images:
   * Use the format {alias}: {width},{height}
   * One line per filesize alias
   * Example: ``square-thumnb:150,150``
-
-<<<<<<< HEAD
-Use the filesize alias whenever resizing images
-=======
-```
-switch($dimension){
-    case 'thumb':
-        // Width: 150px, height: proportional
-        $size=array(150);
-        break;
-    case 'square-thumb':
-        // Square resize
-        $size=array(100,100);
-        break;
-    case 'normal':
-        // Do not resize
-        $size=array(0,0);
-        break;
-    case 'custom':
-        $size=array(300,150);
-        break;
-    default:
-        $size=array(0,0,1);
-        break;
-}
-```
-   * .. Or implement this event to return a array with 2 elements (width,height):
-
-```
-$size = Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));
-```
->>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 
 ### How to add a datasource:
 
