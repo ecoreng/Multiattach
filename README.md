@@ -10,6 +10,7 @@ It uses jQuery and ajax for the UI.
   * Javascript support
   * jQuery (included in Croogo 1.5)
   * X-editable (javascript inline editor, included from CDN)
+  * jquery-sortable (included) (https://github.com/johnny/jquery-sortable)
 
 ## Installation
 
@@ -55,11 +56,16 @@ It uses jQuery and ajax for the UI.
   * Upload multiple files at a time (requires html5 enabled browser).
   * Parses website information to suggest its contents, and the information is editable.
   * The default website parser reads meta tags (open graph, twitter and regular ones), heading tags, p and img tags to look for information. 
-  * Parsed websites are stored in JSON inside the database.
+  * Parsed websites info is stored in JSON inside the database.
   * Website parsers can be added (if you want to attach Vimeo videos, just get a Vimeo datasource and with little changes it can be done)
   * Plugin activation also creates database
   * Allowed mime types editor for file uploads
+<<<<<<< HEAD
   * Element to get latest photo attachments from nodes
+  * Sortable attachments
+=======
+  * Elements to get the latest photos or video attachments from nodes
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
   
 
 ## Limitations
@@ -67,7 +73,7 @@ It uses jQuery and ajax for the UI.
   * By default it supports JPG, GIF, PNG and BMP for images, pdf, txt files
   * Currently it supports only Youtube for videos and any other website will be parsed from its meta tags. Other websites can be easily added by just creating the datasource and naming it appropriately.
   * Currently it supports 3 sizes of thumbnails, others can be hardcoded or you can wait for the feature to be developed (or better yet, develop it :D)
-  * Currently the attachments cant be sorted
+  * ~~Currently the attachments cant be sorted~~
   * Currently Images from parsed websites cant be changed
  
 
@@ -75,10 +81,13 @@ It uses jQuery and ajax for the UI.
 
   * Attachments on node creation
   * Use of datasources properly (i think right now they are used just as regular php objects), take advantage of caching (?)
-  * Document methods in classes
+<<<<<<< HEAD
+=======
+  * Comply with cakephp standards
+  * Use the skinny controller / fat model philosophy
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
   * Edit how file routes are displayed
   * Proper image detection
-  * Cleanup code
   * Thumbnail resizer needs to be optional (external)
   * Attach Galleries or Single pics from Facebook
   * Attach from dropbox
@@ -86,10 +95,15 @@ It uses jQuery and ajax for the UI.
   * "Private" files optional
   * For non private files, attach to the default attachment model
   * File picker for previously uploaded attachments.
-  * Check the transparent PNG error.
+<<<<<<< HEAD
   * * Thumbnail sizes editable
   * * Reroute cache (thumbnails) folder to default cakephp cache folder
-  * ~~Filtering capabilities for the Element: photo_grid~~
+
+=======
+  * Remove screen after upload, comments can now be added in the table .. useless now.
+  * * Thumbnail sizes editable
+  * * Reroute cache (thumbnails) folder to default cakephp cache folder
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 
 ## How to retrieve Attachments
 
@@ -134,46 +148,53 @@ Use the helper
 
 The Multiattach array is already "linked" to the node model, so use the set method to set the attachments in a helper var
 then you can use one of two methods that work similar:
-  * $this->Multiattach->filter(array('key'=>'regex to compare value')) : Useful for getting file attachments (compare mime types, filenames, etc.)
-  * $this->Multiattach->filterWebContent(array('key'=>'regex to compare value parsed from web')) : Useful for getting web attachments as it compares values parsed from the web (url, player url, title, description, any other.. depends on the datasource)
+  * $this->Multiattach->filter(array('key' => 'regex to compare value')) : Useful for getting file attachments (compare mime types, filenames, etc.)
+  * $this->Multiattach->filterWebContent(array('key' => 'regex to compare value parsed from web')) : Useful for getting web attachments as it compares values parsed from the web (url, player url, title, description, any other.. depends on the datasource)
 
 Get attached videos from youtube:
 
 ```
-        $this->Multiattach->set($node["Multiattach"]);
-        $youtubeVids=$this->Multiattach->filterWebContent(array('player'=>'/youtube.com/i'));
-        foreach($youtubeVids as $ytv) {
-         ?><iframe src="<?php echo $ytv["Multiattach"]["content"]["player"];?>"></iframe><?php
-        }
+	$this->Helpers->load('Multiattach.Multiattach');
+	$this->Multiattach->set($node["Multiattach"]);
+	$youtubeVids = $this->Multiattach->filterWebContent(array('player' => '/youtube.com/i'));
+	foreach ($youtubeVids as $ytv) {
+		?><iframe src="<?php echo $ytv["Multiattach"]["content"]["player"];?>"></iframe><?php
+	}
 ```
 
 Get the attached images:
 
 ```
-        $this->Multiattach->set($node["Multiattach"]);
-        $images=$this->Multiattach->filter(array('mime'=>'#image#i'));
-        foreach($images as $image) {
-           $link=$this->Html->url(array(
- 														'plugin'=>'Multiattach',
-															'controller'=>'Multiattach',
-															'action'=>'displayFile', 
-															'admin'=>false,
-															'dimension'=>'normal',
-															'filename'=>$image["Multiattach"]['filename']
-														));
-              ?><img src="<?php echo $link; ?>" alt="attached image" /><?php
-        }
+<?php
+	$this->Helpers->load('Multiattach.Multiattach');
+	$this->Multiattach->set($node["Multiattach"]);
+	$images = $this->Multiattach->filter(array('mime'=>'#image#i'));
+	$imageF = array(
+		'plugin' => 'Multiattach',
+		'controller' => 'Multiattach',
+		'action' => 'displayFile', 
+		'admin' => false,
+        );
+	foreach ($images as $image) {
+		<img src="<?php echo $this->Html->url($imageF + array('dimension' => 'main_slide', 'filename' => $image["Multiattach"]['filename']) ); ?>" alt="Villas at Renaissance - <?php echo $image["Multiattach"]['comment']; ?>" />
+		<?php
+	}
+?>
 ```
 
 ## Extend its use
 
 ### How to add more thumbnail sizes:
 
-  * Open Multiattach controller (Plugins/Multiattach/Controller/MultiattachController.php)
-  * Look for the _getDimension method
-  * Go to the switch part of the method
-  * Lets say you need a thumbnail called custom, with size 300px width, and 150px height, do the following:
+  * Open the Settings / Multiattach page
+  * add a line to the "filesizes available" field
+  * Use the format {alias}: {width},{height}
+  * One line per filesize alias
+  * Example: ``square-thumnb:150,150``
 
+<<<<<<< HEAD
+Use the filesize alias whenever resizing images
+=======
 ```
 switch($dimension){
     case 'thumb':
@@ -199,8 +220,9 @@ switch($dimension){
    * .. Or implement this event to return a array with 2 elements (width,height):
 
 ```
-$size=Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));
+$size = Croogo::dispatchEvent('Controller.Multiattach.getDimension', $this, array('dimension' => $dimension));
 ```
+>>>>>>> e89875dd47236b0cdfdaf44a72db151ea94e86fa
 
 ### How to add a datasource:
 

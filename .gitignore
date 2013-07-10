@@ -126,6 +126,8 @@ Thumbs.db
 # Folder config file
 Desktop.ini
 
+# Comand line stuff [ecoreng]
+*.bat
 
 #############
 ## Python

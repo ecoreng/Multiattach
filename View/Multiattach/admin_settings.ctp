@@ -27,17 +27,23 @@ echo $this->Form->create('Multiattach');
 
 		<div class="tab-content">
 			<div id="setting-basic" class="tab-pane">
-                        
                           <?php
-                          echo $this->Form->input('allowed_mime.id', array('type' => 'hidden', 'default' => $defaults['allowed_mime']['id'] ));
-                          echo $this->Form->input('allowed_mime.value', array(
-                                        'type'  =>'textarea',
-                                        'value' =>implode(PHP_EOL,json_decode($defaults['allowed_mime']["value"],true)),
+                          echo $this->Form->input('allowed_mime__json.id', array('type' => 'hidden', 'default' => $defaults['allowed_mime__json']['id'] ));
+                          echo $this->Form->input('allowed_mime__json.value', array(
+                                        'type'  => 'textarea',
+                                        'value' => implode(PHP_EOL, json_decode($defaults['allowed_mime__json']["value"], true)),
 					'label' => __('Allowed mime types for upload (one mime type per line)'),
-                                        'after' =>'<span class="help-block"><a target="_blank" href="http://www.iana.org/assignments/media-types">List of MIME types</a>.</span>' 
+                                        'after' => '<span class="help-block"><a target="_blank" href="http://www.iana.org/assignments/media-types">List of MIME types</a>.</span>' 
 				));             
-                          echo $this->Form->input('remove_settings.value', array('label'=>__('Remove settings on deactivate?'),'options' => array('1'=>'Yes','0'=>'No'), 'default' => $defaults['remove_settings']['value']));
-                          echo $this->Form->input('remove_settings.id',    array('type' => 'hidden', 'default' => $defaults['remove_settings']['id'] ));
+                          echo $this->Form->input('thumbnail_sizes__json.id', array('type' => 'hidden', 'default' => $defaults['thumbnail_sizes__json']['id'] ));
+                          echo $this->Form->input('thumbnail_sizes__json.value', array(
+                                        'type'  => 'textarea',
+                                        'value' => implode(PHP_EOL, json_decode($defaults['thumbnail_sizes__json']["value"], true)),
+					'label' => __('Filesizes available (alias: width, height) (use 0 if you dont want that dimension to be resized)'),
+				));             
+                          
+                          echo $this->Form->input('remove_settings.value', array('label' => __('Remove settings on deactivate?'),'options' => array('1' => 'Yes', '0' => 'No'), 'default' => $defaults['remove_settings']['value']));
+                          echo $this->Form->input('remove_settings.id', array('type' => 'hidden', 'default' => $defaults['remove_settings']['id'] ));
                           ?> 
                         </div>
                 </div>

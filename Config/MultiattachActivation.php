@@ -1,4 +1,8 @@
 <?php
+
+App::uses('CakeSchema', 'Model');
+App::uses('ConnectionManager', 'Model');
+
 /**
  * Multiattach Activation
  *
@@ -8,7 +12,7 @@
  * @package  Croogo
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
- * @link     http://www.croogo.org
+ * @link http://www.croogo.org
  */
 class MultiattachActivation {
 
@@ -29,52 +33,43 @@ class MultiattachActivation {
  * @return void
  */
 	public function onActivation(&$controller) {
-				$tableName='multiattachments';
-				$pluginName='Multiattach';
-				App::uses('CakeSchema', 'Model');
-				App::uses('ConnectionManager', 'Model');
 
-				$db = ConnectionManager::getDataSource('default');
-				$tables = $db->listSources();
-				
-				// Revisar si existe la tabla, si no usar el schema que se proporciona para generarla
-				if(!in_array(strtolower($tableName),$tables)){
-					$schema =& new CakeSchema(array(
+		$tableName = 'multiattachments';
+		$pluginName = 'Multiattach';
+		$db = ConnectionManager::getDataSource('default');
+		$tables = $db->listSources();
+
+		// Revisar si existe la tabla, si no usar el schema que se proporciona para generarla
+		if (!in_array(strtolower($tableName), $tables)) {
+			$schema = & new CakeSchema(array(
 						'name' => $pluginName,
-						'path'=>APP . 'Plugin' . DS . $pluginName . DS . 'Config' . DS . 'schema',
-						));
-		
-					$schema = $schema->load();
-					foreach ($schema->tables as $table => $fields) {
-						$create = $db->createSchema($schema, $table);
-						try {
-							$db->execute($create);
-						}
-						catch (PDOException $e) {
-							die(__('Could not create table: %s', $e->getMessage()));
-							//$this->Session->setFlash(__('Could not create table: %s', $e->getMessage()), 'default', array('class' => 'error'));
-							return;
-						}
-					}
+						'path' => APP . 'Plugin' . DS . $pluginName . DS . 'Config' . DS . 'schema',
+							)
+			);
+			$schema = $schema->load();
+			foreach ($schema->tables as $table => $fields) {
+				$create = $db->createSchema($schema, $table);
+				try {
+					$db->execute($create);
+				} catch (PDOException $e) {
+					die(__('Could not create table: %s', $e->getMessage()));
 				}
-		
+			}
+		}
 		// ACL: set ACOs with permissions
 		$controller->Croogo->addAco('Multiattach');
 		$controller->Croogo->addAco('Multiattach/Multiattach');
-                $controller->Croogo->addAco('Multiattach/Multiattach/getLatest',array('registered', 'public'));
+		$controller->Croogo->addAco('Multiattach/Multiattach/getLatest', array('registered', 'public'));
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add_web');
-		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add'); 
-		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile',array('registered', 'public')); 
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_add');
+		$controller->Croogo->addAco('Multiattach/Multiattach/displayFile', array('registered', 'public'));
+		$controller->Croogo->addAco('Multiattach/Multiattach/viewFile', array('registered', 'public'));
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxKillAttachmentJson');
 		$controller->Croogo->addAco('Multiattach/Multiattach/admin_AjaxGetAttachmentJson');
-                $controller->Croogo->addAco('Multiattach/Multiattach/admin_PostCommentAttachmentJson');
-                $controller->Croogo->addAco('Multiattach/Multiattach/admin_settings');
-                
-                
-		
-               
-                $controller->Setting->write('Multiattach.remove_settings','0' ,array('description' => 'Remove settings on deactivate','editable' => 1));               
-                $mime= array(
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_PostCommentAttachmentJson');
+		$controller->Croogo->addAco('Multiattach/Multiattach/admin_settings');
+		$controller->Setting->write('Multiattach.remove_settings', '0', array('description' => 'Remove settings on deactivate', 'editable' => 1));
+		$mime = array(
 			'image/gif',
 			'image/x-xbitmap',
 			'image/gi_',
@@ -119,11 +114,22 @@ class MultiattachActivation {
 			'application/bmp',
 			'application/x-bmp',
 			'application/x-win-bitmap',
-			'text/plain','application/txt','browser/internal','text/anytext','widetext/plain','widetext/paragraph',
+			'text/plain',
+			'application/txt',
+			'browser/internal',
+			'text/anytext',
+			'widetext/plain',
+			'widetext/paragraph',
 		);
-                $mime=json_encode($mime);
-                $controller->Setting->write('Multiattach.allowed_mime'   ,$mime  ,array('description' => 'Allowed MIME types for upload', 'editable' => 0));
-                
+		$thumbnail = array(
+			'thumb:150',
+			'square-thumb:150,150',
+			'normal:0,0',
+		);
+		$mime = json_encode($mime);
+		$thumbnail = json_encode($thumbnail);
+		$controller->Setting->write('Multiattach.allowed_mime__json', $mime, array('description' => 'Allowed MIME types for upload', 'editable' => 0));
+		$controller->Setting->write('Multiattach.thumbnail_sizes__json', $thumbnail, array('description' => 'Defined alias for thumbnail sizes', 'editable' => 0));
 	}
 
 /**
@@ -144,31 +150,13 @@ class MultiattachActivation {
  */
 	public function onDeactivation(&$controller) {
 		// ACL: remove ACOs with permissions
-		$controller->Croogo->removeAco('Multiattach'); // ExampleController ACO and it's actions will be removed
-                
-                // Remove Allowed MIME types
-                if(Configure::read('Multiattach.remove_settings') == '1' ){
-                     $controller->Setting->deleteKey('Multiattach.allowed_mime');
-                }
-                
-                
-		// Main menu: delete Example link
-		//$link = $controller->Link->find('first', array(
-		//	'conditions' => array(
-		//		'Menu.alias' => 'main',
-		//		'Link.link' => 'plugin:example/controller:example/action:index',
-		//	),
-		//));
-		//if (empty($link)) {
-		//	return;
-		//}
-		//$controller->Link->Behaviors->attach('Tree', array(
-		//	'scope' => array(
-		//		'Link.menu_id' => $link['Link']['menu_id'],
-		//	),
-		//));
-		//if (isset($link['Link']['id'])) {
-		//	$controller->Link->delete($link['Link']['id']);
-		//}
+		$controller->Croogo->removeAco('Multiattach');
+
+		// Remove Allowed MIME types
+		if (Configure::read('Multiattach.remove_settings') == '1') {
+			$controller->Setting->deleteKey('Multiattach.allowed_mime__json');
+			$controller->Setting->deleteKey('Multiattach.thumbnail_sizes__json');
+		}
 	}
+
 }

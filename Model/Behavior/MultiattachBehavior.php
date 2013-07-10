@@ -1,5 +1,7 @@
 <?php
+
 App::uses('ModelBehavior', 'Model');
+
 /**
  * Multiattach Behavior
  *
@@ -36,7 +38,6 @@ class MultiattachBehavior extends ModelBehavior {
  * @return array
  */
 	public function afterFind(Model $model, $results = array(), $primary = false) {
-		
 		if ($primary && isset($results[0][$model->alias])) {
 			foreach ($results as $i => $result) {
 				$model->bindModel(
@@ -46,14 +47,13 @@ class MultiattachBehavior extends ModelBehavior {
 								)
 							)
 						)
-					);
-				$model->Multiattach->recursive=-1;				
-				if(isset($results[$i][$model->alias]['id'])) {
-					$results[$i]['Multiattach']=$model->Multiattach->find('all',array('order'=>array('Multiattach.id DESC'),'conditions'=>array('Multiattach.node_id'=>$results[$i][$model->alias]['id'])));
+				);
+				$model->Multiattach->recursive = -1;
+				if (isset($results[$i][$model->alias]['id'])) {
+					$results[$i]['Multiattach'] = $model->Multiattach->find('all', array('order' => array('Multiattach.id DESC'), 'conditions' => array('Multiattach.node_id' => $results[$i][$model->alias]['id'])));
 				}
 			}
 		}
 		return $results;
 	}
-
 }
