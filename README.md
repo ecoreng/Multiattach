@@ -173,7 +173,7 @@ Get the attached images:
   * add a line to the "filesizes available" field
   * Use the format {alias}: {width},{height}
   * One line per filesize alias
-  * Example: ``square-thumnb:150,150``
+  * Example: ``square-thumb:150,150``
 
 ### How to add a datasource:
 
