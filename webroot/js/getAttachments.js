@@ -61,7 +61,6 @@ function sortedArray(elements){
 		$(a).each(function(i,e){
 			serialText += '&s[' + i + ']=' + e;
 		});
-		console.log(serialText);
 		var url = Croogo.basePath + 'admin/Multiattach/AjaxOrderAttachmentJson/'+Croogo.params.node_id + '/?' + serialText;
 		$.getJSON(url, function(data) {
 			
