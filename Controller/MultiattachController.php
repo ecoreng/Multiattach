@@ -113,7 +113,7 @@ class MultiattachController extends AppController {
  * @param array $size
  * @return string
  */
-	protected function _resizeImage($filename, $size) {
+	protected function _resizeImage($filename, $size, $node) {
 		$cacheDir = 'files' . DS . 'cache';
 		//https://gist.github.com/bchapuis/1562272
 
@@ -148,7 +148,7 @@ class MultiattachController extends AppController {
 		if (!is_dir(APP . $cacheDir) || !file_exists(APP . $cacheDir)) {
 			mkdir(APP . $cacheDir);
 		}
-		$relfile = $cacheDir . DS . (int)$dstW . 'x' . (int)$dstH . '_' . basename($path);
+		$relfile = $cacheDir . DS . (int)$dstW . 'x' . (int)$dstH . '_' . $node . '_' . basename($path);
 		$cachefile = $fullpath . $relfile;
 		if (file_exists($cachefile)) {
 			if (filemtime($cachefile) >= filemtime($url)) {
@@ -210,11 +210,13 @@ class MultiattachController extends AppController {
 		}
 		$ext = explode('.', $filename);
 		$ext = $ext[(count($ext) - 1)];
+		$nodeN = explode("-", $filename);
+		$nodeN = $nodeN[0];
 		if (count($archivo) > 0) {
 			$this->response->type($archivo['Multiattach']['mime']);
 			$this->response->cache('-1 minute', '+2 days');
 			if ($isImage) {
-				$img = $this->_resizeImage($archivo['Multiattach']['real_filename'], $size);
+				$img = $this->_resizeImage($archivo['Multiattach']['real_filename'], $size, $nodeN);
 				$this->response->file($img, array('download' => false, 'name' => $filename));
 				$this->response->body($img);
 			} else {
