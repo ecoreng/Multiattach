@@ -35,6 +35,7 @@ class MultiattachController extends AppController {
 		$settings = $this->Setting->find('all', array('conditions' => array('Setting.key LIKE' => $this->pluginPrefix . '.%')));
 		$this->defaults = $this->Multiattach->getSettings($settings);
 		$this->set('defaults', $this->defaults);
+        $this->Security->unlockedActions += array('admin_add');
 	}
 
 /**
