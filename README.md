@@ -65,11 +65,9 @@ It uses jQuery and ajax for the UI.
 
 ## Limitations
 
-  * By default it supports JPG, GIF, PNG and BMP for images, pdf, txt files
   * Currently it supports only Youtube for videos and any other website will be parsed from its meta tags. Other websites can be easily added by just creating the datasource and naming it appropriately.
-  * Currently it supports 3 sizes of thumbnails, others can be hardcoded or you can wait for the feature to be developed (or better yet, develop it :D)
-  * ~~Currently the attachments cant be sorted~~
   * Currently Images from parsed websites cant be changed
+  * Only created Nodes can have attachments, cant attach at creation time.
  
 
 ## To do
