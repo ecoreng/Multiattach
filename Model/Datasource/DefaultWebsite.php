@@ -35,7 +35,7 @@ class DefaultWebsite extends DataSource {
  * @return mixed - return false if there is an error, return an array if valid
  */
 	public function find($url) {
-		$HttpSocket = new HttpSocket($this->defaultSocketSettings);
+		$HttpSocket = new HttpSocket(array('ssl_verify_host' => false));
 		$source = $HttpSocket->get($url);
 		// 1st Priority: Opengraph tags (Easier for us, stricter to implement which turns out cleaner)
 		// 2nd Pr: Meta tags of twitter
