@@ -55,7 +55,7 @@ class Multiattach extends AppModel {
 		)
 	);
 
-	public function beforeDelete() {
+	public function beforeDelete($cascade = true) {
 		$deleteAttach = $this->findById($this->id);
 		if (file_exists(APP . $deleteAttach["Multiattach"]["real_filename"])) {
 			if (unlink(APP . $deleteAttach["Multiattach"]["real_filename"])) {
